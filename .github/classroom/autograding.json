@@ -1,0 +1,24 @@
+{
+  "tests": [
+    {
+      "name": "Run Java",
+      "setup": "",
+      "run": "gradle test",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Run Java - Maven",
+      "setup": "",
+      "run": "maven test",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 5,
+      "points": null
+    }
+  ]
+}
