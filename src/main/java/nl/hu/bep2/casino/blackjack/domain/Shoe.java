@@ -37,5 +37,5 @@ public class Shoe {
 		for(int i=0;i<cardsTaken;i++) grabCard();
 	}
 	public long getSeed() {return this.seed;}
-	public int getCardsTaken() {return this.cardsTaken;}
+	public int getCardsTaken() {return this.decks*52-this.cards.size();}
 }

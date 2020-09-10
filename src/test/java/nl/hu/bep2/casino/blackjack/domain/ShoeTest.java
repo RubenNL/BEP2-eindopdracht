@@ -24,4 +24,13 @@ class ShoeTest {
 		assertEquals(104,new Shoe(2).cardsAvailable(),"2 decks zou 104 kaarten moeten zijn.");
 		assertEquals(156,new Shoe(3).cardsAvailable(),"3 decks zou 156 kaarten moeten zijn.");
 	}
+	@Test
+	void testCardsTaken() {
+		Shoe shoe=new Shoe(2);
+		assertEquals(0,shoe.getCardsTaken(),"Nog geen kaarten gepakt");
+		shoe.grabCard();
+		assertEquals(1,shoe.getCardsTaken(),"Nu 1 kaart gepakt.");
+		shoe.grabCard();
+		assertEquals(2,shoe.getCardsTaken(),"Nu 2 kaart gepakt.");
+	}
 }
