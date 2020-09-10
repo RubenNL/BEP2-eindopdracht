@@ -27,8 +27,8 @@ public class Shoe {
 	private void generate() {
 		cards=new ArrayList<>();
 		for(Faces face:Faces.values()) {
-			for(Types type:Types.values()) {
-				cards.add(new Card(face,type));
+			for(Rank rank:Rank.getRanks()) {
+				cards.add(new Card(face,rank));
 			}
 		}
 		Collections.shuffle(cards,new Random(seed));

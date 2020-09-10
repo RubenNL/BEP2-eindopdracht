@@ -4,15 +4,15 @@ import java.util.Objects;
 
 public class Card {
 	private Faces face;
-	private Types type;
+	private Rank rank;
 
-	public Card(Faces face, Types type) {
+	public Card(Faces face, Rank rank) {
 		this.face = face;
-		this.type = type;
+		this.rank = rank;
 	}
 
 	public String toString() {
-		return face+" "+type;
+		return face+" "+ rank;
 	}
 
 	@Override
@@ -21,11 +21,11 @@ public class Card {
 		if (o == null || getClass() != o.getClass()) return false;
 		Card card = (Card) o;
 		return face == card.face &&
-				type == card.type;
+				rank == card.rank;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(face, type);
+		return Objects.hash(face, rank);
 	}
 }
