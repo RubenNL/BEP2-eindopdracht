@@ -19,16 +19,18 @@ public class Shoe {
 		generate();
 	}
 	public int cardsAvailable() {
-		return decks*52-cards.size();
+		return cards.size();
 	}
 	public Card grabCard() {
 		return cards.remove(0);
 	}
 	private void generate() {
 		cards=new ArrayList<>();
-		for(Faces face:Faces.values()) {
-			for(Rank rank:Rank.getRanks()) {
-				cards.add(new Card(face,rank));
+		for(int i=0;i<decks;i++) {
+			for (Faces face : Faces.values()) {
+				for (Rank rank : Rank.getRanks()) {
+					cards.add(new Card(face, rank));
+				}
 			}
 		}
 		Collections.shuffle(cards,new Random(seed));
