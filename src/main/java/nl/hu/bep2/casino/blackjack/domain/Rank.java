@@ -1,9 +1,6 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Rank {
 	private static List<Rank> ranks =new ArrayList<>();
@@ -34,4 +31,23 @@ public class Rank {
 	}
 
 	public static List<Rank> getRanks() {return Collections.unmodifiableList(ranks);}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Rank rank = (Rank) o;
+		return name.equals(rank.name) &&
+				possibleValues.equals(rank.possibleValues);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, possibleValues);
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }

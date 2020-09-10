@@ -21,7 +21,7 @@ public class Card {
 		if (o == null || getClass() != o.getClass()) return false;
 		Card card = (Card) o;
 		return face == card.face &&
-				rank == card.rank;
+				rank.equals(card.rank);
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package nl.hu.bep2.casino.blackjack.domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Random;
 
 public class Shoe {
@@ -38,4 +39,28 @@ public class Shoe {
 	}
 	public long getSeed() {return this.seed;}
 	public int getCardsTaken() {return this.decks*52-this.cards.size();}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Shoe shoe = (Shoe) o;
+		return decks == shoe.decks &&
+				seed == shoe.seed &&
+				cardsTaken == shoe.cardsTaken;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(decks, seed, cardsTaken);
+	}
+
+	@Override
+	public String toString() {
+		return "Shoe{" +
+				"decks=" + decks +
+				", seed=" + seed +
+				", cardsTaken=" + cardsTaken +
+				'}';
+	}
 }
