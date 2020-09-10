@@ -8,7 +8,6 @@ class ShoeTest {
 	@Test
 	void testRandom() {
 		Shoe shoe1=new Shoe(1);
-		System.out.println(shoe1);
 		Card firstGrab=shoe1.grabCard();
 		Card secondGrab=shoe1.grabCard();
 		assertNotEquals(firstGrab,secondGrab,"kaarten kunnen niet hetzelfde zijn.");
