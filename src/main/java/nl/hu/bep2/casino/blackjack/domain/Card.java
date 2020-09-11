@@ -28,4 +28,12 @@ public class Card {
 	public int hashCode() {
 		return Objects.hash(face, rank);
 	}
+
+	public Faces getFace() {
+		return face;
+	}
+
+	public Rank getRank() {
+		return rank;
+	}
 }
