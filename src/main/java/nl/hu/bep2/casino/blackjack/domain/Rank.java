@@ -19,8 +19,10 @@ public class Rank {
 		ranks.add(new Rank("Queen", Arrays.asList(10)));
 		ranks.add(new Rank("King", Arrays.asList(10)));
 	}
+	public static List<Rank> getRanks() {return Collections.unmodifiableList(ranks);}
 	private String name;
 	private List<Integer> possibleValues;
+
 	public Rank(String name, List<Integer> possibleValues) {
 		this.name=name;
 		this.possibleValues=possibleValues;
@@ -29,8 +31,6 @@ public class Rank {
 	public List<Integer> getPossibleValues() {
 		return possibleValues;
 	}
-
-	public static List<Rank> getRanks() {return Collections.unmodifiableList(ranks);}
 
 	@Override
 	public boolean equals(Object o) {

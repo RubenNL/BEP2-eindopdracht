@@ -6,11 +6,11 @@ import java.util.List;
 
 public class Hand {
 	private List<Card> cards=new ArrayList<>();
-	private List<Integer> getPossibleValues(List<Card> cards) {
+	private List<Integer> getPossibleTotalValues(List<Card> cards) {
 		List<Integer> values=new ArrayList<>();
 		List<Integer> currentCardValues=cards.get(0).getRank().getPossibleValues();
 		if(cards.size()>1) {
-			List<Integer> valuesOtherCards=getPossibleValues(cards.subList(1,cards.size()));
+			List<Integer> valuesOtherCards= getPossibleTotalValues(cards.subList(1,cards.size()));
 			for(Integer value:currentCardValues) {
 				for(Integer otherValue:valuesOtherCards) {
 					values.add(value+otherValue);
@@ -20,18 +20,18 @@ public class Hand {
 		Collections.sort(values);
 		return values;
 	}
-	public List<Integer> getPossibleValues() {
-		return getPossibleValues(cards);
+	public List<Integer> getPossibleTotalValues() {
+		return getPossibleTotalValues(cards);
 	}
 	public int getMinValue() {
-		return getPossibleValues().get(0);
+		return getPossibleTotalValues().get(0);
 	}
 	public int getMaxValue() {
-		List<Integer> possibleValues=getPossibleValues();
+		List<Integer> possibleValues= getPossibleTotalValues();
 		return possibleValues.get(possibleValues.size()-1);
 	}
 	public int closestTo21() {
-		List<Integer> possibleValues=getPossibleValues();
+		List<Integer> possibleValues= getPossibleTotalValues();
 		Collections.reverse(possibleValues);
 		while(true) {
 			int value=possibleValues.remove(0);

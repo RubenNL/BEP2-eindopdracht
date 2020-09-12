@@ -18,16 +18,16 @@ class HandTest {
 	@Test
 	void TestValueSimple() {
 		hand.addCard(new Card(Faces.CLUBS,ranks.get(1)));//kaart 2, is 2
-		assertEquals(Arrays.asList(2),hand.getPossibleValues());
+		assertEquals(Arrays.asList(2),hand.getPossibleTotalValues());
 		hand.addCard(new Card(Faces.CLUBS,ranks.get(11)));//kaart 12, zou 10 moeten zijn.
-		assertEquals(Arrays.asList(12),hand.getPossibleValues());
+		assertEquals(Arrays.asList(12),hand.getPossibleTotalValues());
 	}
 	@Test
 	void testAce() {
 		hand.addCard(new Card(Faces.CLUBS,ranks.get(0)));
-		assertEquals(Arrays.asList(1,11),hand.getPossibleValues());
+		assertEquals(Arrays.asList(1,11),hand.getPossibleTotalValues());
 		hand.addCard(new Card(Faces.CLUBS,ranks.get(0)));
-		assertEquals(Arrays.asList(2,12,12,22),hand.getPossibleValues());
+		assertEquals(Arrays.asList(2,12,12,22),hand.getPossibleTotalValues());
 	}
 	@Test
 	void testBlackjackSimple() {
