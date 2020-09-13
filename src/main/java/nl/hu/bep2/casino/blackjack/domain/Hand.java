@@ -5,7 +5,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class Hand {
+	private boolean finished=false;
+	private DealerAndPlayer dealerAndPlayer;
+	public Hand(DealerAndPlayer dealerAndPlayer) {
+		this.dealerAndPlayer = dealerAndPlayer;
+	}
 	private List<Card> cards=new ArrayList<>();
+
 	private List<Integer> getPossibleTotalValues(List<Card> cards) {
 		List<Integer> values=new ArrayList<>();
 		List<Integer> currentCardValues=cards.get(0).getRank().getPossibleValues();
@@ -47,7 +53,18 @@ public class Hand {
 	public boolean hasBlackjack() {
 		return cards.size()==2 && getMaxValue()==21;
 	}
+
 	public void addCard(Card card) {
 		cards.add(card);
-	} //voor debugging, gaat later worden weggehaald. TODO
+	}
+
+	public List<Card> getCards() {
+		return Collections.unmodifiableList(cards);
+	}
+
+	public void hit() {
+		cards.add(dealerAndPlayer.getTable().getShoe().grabCard());
+	}
+	public void stand() {this.finished=true;}
+	public boolean getFinished() {return this.finished;}
 }
