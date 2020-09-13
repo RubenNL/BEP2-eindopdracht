@@ -1,15 +1,12 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class Shoe {
 	private int decks;
 	private long seed;
 	private int cardsTaken;
-	private ArrayList<Card> cards;
+	private List<Card> cards;
 	public Shoe(int decks) {
 		this(decks,new Random().nextLong(),0);
 	}
