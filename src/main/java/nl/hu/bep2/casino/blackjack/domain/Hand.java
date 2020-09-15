@@ -62,9 +62,6 @@ public class Hand {
 		return Collections.unmodifiableList(cards);
 	}
 
-	public void hit() {
-		cards.add(dealerAndPlayer.getTable().getShoe().grabCard());
-	}
 	public void stand() {this.finished=true;}
 	public boolean getFinished() {return this.finished;}
 }
