@@ -17,23 +17,24 @@
 
     <properties>
         <java.version>11</java.version>
+        <casino.smalldeploy>compile</casino.smalldeploy><!--kan aangepast worden naar provided wanneer de libraries al zijn geupload.-->
+        <casino.include>**</casino.include><!--als de static bestanden extern worden gehost, kan hier "*-INF/**" staan.-->
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <scope>${casino.smalldeploy}</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-hateoas</artifactId>
+            <scope>${casino.smalldeploy}</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+            <scope>${casino.smalldeploy}</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -50,35 +51,41 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
+            <scope>${casino.smalldeploy}</scope>
             <version>0.11.2</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
             <version>0.11.2</version>
-            <scope>runtime</scope>
+            <!--<scope>runtime</scope>-->
+            <scope>${casino.smalldeploy}</scope>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
             <version>0.11.2</version>
-            <scope>runtime</scope>
+            <!--<scope>runtime</scope>-->
+            <scope>${casino.smalldeploy}</scope>
         </dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>runtime</scope>
+            <!--<scope>runtime</scope>-->
+            <scope>${casino.smalldeploy}</scope>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
+            <!--<scope>runtime</scope>-->
+            <scope>${casino.smalldeploy}</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+            <scope>${casino.smalldeploy}</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -105,10 +112,10 @@
 
     <build>
         <plugins>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
@@ -117,6 +124,15 @@
                     <url>http://pi4.wire:18080/manager/text</url>
                     <server>pi4</server>
                     <path>/casino</path>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <packagingIncludes>${casino.include}</packagingIncludes>
+                    <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
                 </configuration>
             </plugin>
         </plugins>
