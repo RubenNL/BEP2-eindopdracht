@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="card.css">
+    </head>
+    <body>
+        <p class="card" id="card">
+        </p>
+    </body>
+    <script src="card.js"></script>
+    <script>
+        for(let x=0;x<4;x++) {
+            for(let y=0;y<13;y++) {
+                document.getElementById('card').innerHTML+=getCardHTML(x,y);
+            }
+            document.getElementById('card').innerHTML+='<br>'
+        }
+    </script>
+</html>
