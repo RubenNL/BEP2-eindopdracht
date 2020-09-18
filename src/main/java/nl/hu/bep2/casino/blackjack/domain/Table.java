@@ -5,18 +5,16 @@ import java.util.List;
 
 public class Table {
 	private Shoe shoe;
-	private List<Player> players =new ArrayList<>();
+	private Player player;
+	private Dealer dealer;
 	private boolean started=false;
 	public Table(Shoe shoe) {
 		this.shoe=shoe;
+		dealer=new Dealer(this);
 	}
-	public void addPlayer(Player player) {
-		players.add(player);
-	}
-	public void start() {
-		if(this.started) throw new UnsupportedOperationException("al gestart!");
-		this.started=true;
-		players.add(new Dealer(this));
+	public void setPlayer(Player player) {
+		if(this.player!=null) throw new UnsupportedOperationException("player al defined!");
+		this.player=player;
 	}
 	public Shoe getShoe() {
 		return this.shoe;
