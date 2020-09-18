@@ -1,18 +1,15 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
-import java.util.Collections;
-import java.util.List;
-
-public class Player extends DealerAndPlayer {
-	private List<Hand> hands;
+public class Player {
+	private Table table;
 	public Player(Table table) {
-		super(table);
+		this.table=table;
 	}
-	public void removeHand(Hand hand) {
-		hands.remove(hand);
+	public Table getTable() {
+		return this.table;
 	}
-	public void addHand(Hand hand) {this.hands.add(hand);}
-	public List<Hand> getHands() {
-		return Collections.unmodifiableList(hands);
+	private Hand hand;
+	public Hand getHand() {
+		return this.hand;
 	}
 }

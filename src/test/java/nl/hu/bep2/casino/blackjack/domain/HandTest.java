@@ -13,7 +13,7 @@ class HandTest {
 	private Hand hand;
 	@BeforeEach
 	void beforeEach() {
-		hand=new Hand(new DealerAndPlayer(new Table(new Shoe(1))));
+		hand=new Hand(new Player(new Table(new Shoe(1))));
 	}
 	@Test
 	void TestValueSimple() {

@@ -5,10 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class Hand {
-	private boolean finished=false;
-	private DealerAndPlayer dealerAndPlayer;
-	public Hand(DealerAndPlayer dealerAndPlayer) {
-		this.dealerAndPlayer = dealerAndPlayer;
+	private Player player;
+	public Hand(Player player) {
+		this.player = player;
 	}
 	private List<Card> cards=new ArrayList<>();
 
@@ -61,7 +60,4 @@ public class Hand {
 	public List<Card> getCards() {
 		return Collections.unmodifiableList(cards);
 	}
-
-	public void stand() {this.finished=true;}
-	public boolean getFinished() {return this.finished;}
 }
