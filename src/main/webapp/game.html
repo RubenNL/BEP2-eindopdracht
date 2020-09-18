@@ -1,18 +1,56 @@
 <html>
     <head>
         <link rel="stylesheet" href="card.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
-        <p class="card" id="card">
-        </p>
-    </body>
-    <script src="card.js"></script>
-    <script>
-        for(let x=0;x<4;x++) {
-            for(let y=0;y<13;y++) {
-                document.getElementById('card').innerHTML+=getCardHTML(x,y);
+        <div>
+            <h1>kaarten:</h1>
+            <p id="card"></p>
+        </div>
+        <table id="game">
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Dealer</td>
+                <td>shoe</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="handTd" playerId="0"></td>
+                <td id="shoe"></td>
+            </tr>
+            <tr id="playerNames">
+                <td>playernames:</td>
+            </tr>
+            <tr id="players">
+                <td>handen:</td>
+            </tr>
+            <tr id="bets">
+                <td>inzet:</td>
+            </tr>
+        </table>
+        <button id="hit">HIT</button>
+        <button id="stand">STAND</button>
+        <button id="split">SPLIT</button>
+        <br>
+        <template id="player">
+            <td class="handTd" playerId="1">
+                <table class="player">
+                </table>
+            </td>
+        </template>
+        <script src="card.js"></script>
+        <script>
+            for(let x=0;x<4;x++) {
+                for(let y=0;y<13;y++) {
+                    document.getElementById('card').innerHTML+=getCardHTML(x,y);
+                }
+                document.getElementById('card').innerHTML+='<br>'
             }
-            document.getElementById('card').innerHTML+='<br>'
-        }
-    </script>
+        </script>
+        <script src="gui.js"></script>
+        <script src="exampleData.js"></script>
+    </body>
 </html>

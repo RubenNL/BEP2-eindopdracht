@@ -1,6 +1,9 @@
 .card.suite1,.card.suite2 {
     color:red;
 }
+table,td {
+    border:1px solid black;
+}
 .card {
     font-size:200%;
 }
