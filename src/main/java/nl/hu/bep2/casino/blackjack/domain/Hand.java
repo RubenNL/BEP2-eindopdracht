@@ -1,19 +1,21 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Entity
 public class Hand {
-	private Player player;
-	public Hand(Player player) {
-		this.player = player;
-	}
-	private List<Card> cards=new ArrayList<>();
+	private @Id @GeneratedValue int id;
+	private @OneToMany List<Card> cards=new ArrayList<>();
 
 	private List<Integer> getPossibleTotalValues(List<Card> cards) {
 		List<Integer> values=new ArrayList<>();
-		List<Integer> currentCardValues=cards.get(0).getRank().getPossibleValues();
+		List<Integer> currentCardValues=cards.get(0).getRank().possibleValues;
 		if(cards.size()>1) {
 			List<Integer> valuesOtherCards= getPossibleTotalValues(cards.subList(1,cards.size()));
 			for(Integer value:currentCardValues) {

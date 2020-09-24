@@ -1,5 +1,8 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
+import javax.persistence.Entity;
+
+@Entity
 public class HumanPlayer extends Player {
 	private int bet;
 	private boolean finished;
@@ -7,6 +10,11 @@ public class HumanPlayer extends Player {
 		super(table);
 		this.bet=bet;
 	}
+
+	public HumanPlayer() {
+
+	}
+
 	public int getBet() {
 		return this.bet;
 	}

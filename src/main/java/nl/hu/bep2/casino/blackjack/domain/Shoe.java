@@ -1,12 +1,19 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.*;
 
+@Entity
 public class Shoe {
 	private int decks;
 	private long seed;
-	private int cardsTaken;
+	private int cardsTaken=0;
+	@Transient
 	private List<Card> cards;
+	private Integer id;
+
 	public Shoe(int decks) {
 		this(decks,new Random().nextLong(),0);
 	}
@@ -16,6 +23,11 @@ public class Shoe {
 		this.cardsTaken=cardsTaken;
 		generate();
 	}
+
+	public Shoe() {
+
+	}
+
 	public int cardsAvailable() {
 		return cards.size();
 	}
@@ -26,7 +38,7 @@ public class Shoe {
 		cards=new ArrayList<>();
 		for(int i=0;i<decks;i++) {
 			for (Faces face : Faces.values()) {
-				for (Rank rank : Rank.getRanks()) {
+				for (Rank rank : Rank.values()) {
 					cards.add(new Card(face, rank));
 				}
 			}
@@ -34,7 +46,9 @@ public class Shoe {
 		Collections.shuffle(cards,new Random(seed));
 		for(int i=0;i<cardsTaken;i++) grabCard();
 	}
+	public void setSeed(long seed) {this.seed=seed;}
 	public long getSeed() {return this.seed;}
+	public void setCardsTaken(int cardsTaken) {this.cardsTaken=cardsTaken;}
 	public int getCardsTaken() {return this.decks*52-this.cards.size();}
 
 	@Override
@@ -59,5 +73,14 @@ public class Shoe {
 				", seed=" + seed +
 				", cardsTaken=" + cardsTaken +
 				'}';
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Id
+	public Integer getId() {
+		return id;
 	}
 }
