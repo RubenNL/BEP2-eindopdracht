@@ -9,19 +9,19 @@ public class Player {
 	@Id
 	private Integer id;
 	@OneToOne
-	private Table table;
+	private PlayTable playTable;
 	@OneToOne
 	private Hand hand;
-	public Player(Table table) {
-		this.table=table;
+	public Player(PlayTable playTable) {
+		this.playTable = playTable;
 	}
 
 	public Player() {
 
 	}
 
-	public Table getTable() {
-		return this.table;
+	public PlayTable getTable() {
+		return this.playTable;
 	}
 	public Hand getHand() {
 		return this.hand;
@@ -31,7 +31,6 @@ public class Player {
 		this.id = id;
 	}
 
-	@Id
 	public Integer getId() {
 		return id;
 	}

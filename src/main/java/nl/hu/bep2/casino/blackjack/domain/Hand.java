@@ -1,9 +1,6 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +9,8 @@ import java.util.List;
 public class Hand {
 	private @Id @GeneratedValue int id;
 	private @OneToMany List<Card> cards=new ArrayList<>();
+	@OneToOne
+	private Player player;
 	private boolean finished;
 	private int bet;
 	private List<Integer> getPossibleTotalValues(List<Card> cards) {
@@ -71,4 +70,5 @@ public class Hand {
 	public void doubleBet() {
 		this.bet*=2;
 	}
+	public int getId() {return this.id;}
 }

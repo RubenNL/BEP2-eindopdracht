@@ -4,8 +4,8 @@ import javax.persistence.Entity;
 
 @Entity
 public class HumanPlayer extends Player {
-	public HumanPlayer(Table table) {
-		super(table);
+	public HumanPlayer(PlayTable playTable) {
+		super(playTable);
 	}
 	public HumanPlayer() {
 

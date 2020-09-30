@@ -1,19 +1,21 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@Table(name="shoes")
 public class Shoe {
 	private int decks;
 	private long seed;
 	private int cardsTaken=0;
 	@Transient
 	private List<Card> cards;
-	private Integer id;
-
+	@Id
+	@GeneratedValue
+	private int id;
+	@OneToOne
+	private PlayTable table;
 	public Shoe(int decks) {
 		this(decks,new Random().nextLong(),0);
 	}
@@ -79,8 +81,7 @@ public class Shoe {
 		this.id = id;
 	}
 
-	@Id
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 }

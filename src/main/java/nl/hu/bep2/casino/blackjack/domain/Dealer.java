@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 
 @Entity
 public class Dealer extends Player {
-	public Dealer(Table table) {super(table);}
+	public Dealer(PlayTable playTable) {super(playTable);}
 
 	public Dealer() {
 
