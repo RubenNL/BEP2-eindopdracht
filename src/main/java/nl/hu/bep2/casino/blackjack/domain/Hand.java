@@ -12,7 +12,8 @@ import java.util.List;
 public class Hand {
 	private @Id @GeneratedValue int id;
 	private @OneToMany List<Card> cards=new ArrayList<>();
-
+	private boolean finished;
+	private int bet;
 	private List<Integer> getPossibleTotalValues(List<Card> cards) {
 		List<Integer> values=new ArrayList<>();
 		List<Integer> currentCardValues=cards.get(0).getRank().possibleValues;
@@ -61,5 +62,13 @@ public class Hand {
 
 	public List<Card> getCards() {
 		return Collections.unmodifiableList(cards);
+	}
+	public void finish() {this.finished=true;}
+	public boolean getFinished() {return this.finished;}
+	public int getBet() {
+		return this.bet;
+	}
+	public void doubleBet() {
+		this.bet*=2;
 	}
 }
