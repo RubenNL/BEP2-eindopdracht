@@ -20,10 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class HitTest {
-	@Before
-	void createAdmin() {
-		userService.register("admin","admin","ad","min");
-	}
 	@Autowired
 	private TableService tableService;
 	@Autowired
@@ -36,6 +32,7 @@ public class HitTest {
 	private HitStrategy hitStrategy;
 	@Test
 	void hitTest() {
+		userService.register("admin","admin","ad","min");
 		User user=userService.loadUserByUsername("admin");
 		PlayTable table1=tableService.newTable(2,user);
 		PlayTable table2=tableService.getTable(user);
