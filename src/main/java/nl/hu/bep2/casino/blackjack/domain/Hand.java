@@ -4,12 +4,14 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Hand {
 	private @Id @GeneratedValue int id;
-	private @OneToMany List<Card> cards=new ArrayList<>();
-	@OneToOne
+	@Convert(converter= CardsConverter.class)
+	private List<Card> cards=new ArrayList<>();
+	@OneToOne(mappedBy="hand", cascade=CascadeType.ALL)
 	private Player player;
 	private boolean finished;
 	private int bet;
@@ -71,4 +73,32 @@ public class Hand {
 		this.bet*=2;
 	}
 	public int getId() {return this.id;}
+	public Player getPlayer() {return this.player;}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Hand hand = (Hand) o;
+		return id == hand.id &&
+				finished == hand.finished &&
+				bet == hand.bet;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, finished, bet);
+	}
+
+	@Override
+	public String toString() {
+		return "Hand{" +
+				"id=" + id +
+				", finished=" + finished +
+				", bet=" + bet +
+				'}';
+	}
+	public void reset() {
+		this.cards.clear();
+	}
 }

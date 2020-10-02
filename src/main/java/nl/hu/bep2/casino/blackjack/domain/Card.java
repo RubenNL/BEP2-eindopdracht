@@ -6,25 +6,13 @@ import javax.persistence.IdClass;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@IdClass(Card.CardId.class)
-public class Card {
-	public class CardId implements Serializable {
-		Faces face;
-		Rank rank;
-	}
-	@Id
+public class Card implements Serializable {
 	private Faces face;
-	@Id
 	private Rank rank;
 
 	public Card(Faces face, Rank rank) {
 		this.face = face;
 		this.rank = rank;
-	}
-
-	public Card() {
-
 	}
 
 	public String toString() {

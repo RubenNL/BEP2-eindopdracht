@@ -1,13 +1,12 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
-import javax.persistence.Entity;
+import nl.hu.bep2.casino.security.data.User;
 
-@Entity
+import javax.persistence.OneToOne;
+
 public class HumanPlayer extends Player {
-	public HumanPlayer(PlayTable playTable) {
+	public HumanPlayer(User user,PlayTable playTable) {
 		super(playTable);
-	}
-	public HumanPlayer() {
-
+		super.setUser(user);
 	}
 }

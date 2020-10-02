@@ -8,13 +8,13 @@ import java.util.*;
 public class Shoe {
 	private int decks;
 	private long seed;
-	private int cardsTaken=0;
+	private int cardsTaken;
 	@Transient
 	private List<Card> cards;
 	@Id
 	@GeneratedValue
 	private int id;
-	@OneToOne
+	@OneToOne(mappedBy="shoe")
 	private PlayTable table;
 	public Shoe(int decks) {
 		this(decks,new Random().nextLong(),0);
@@ -29,13 +29,14 @@ public class Shoe {
 	public Shoe() {
 
 	}
-
 	public int cardsAvailable() {
 		return cards.size();
 	}
 	public Card grabCard() {
+		cardsTaken++;
 		return cards.remove(0);
 	}
+	@PostLoad
 	private void generate() {
 		cards=new ArrayList<>();
 		for(int i=0;i<decks;i++) {
@@ -46,12 +47,12 @@ public class Shoe {
 			}
 		}
 		Collections.shuffle(cards,new Random(seed));
-		for(int i=0;i<cardsTaken;i++) grabCard();
+		for(int i=0;i<cardsTaken;i++) cards.remove(0);
 	}
 	public void setSeed(long seed) {this.seed=seed;}
 	public long getSeed() {return this.seed;}
 	public void setCardsTaken(int cardsTaken) {this.cardsTaken=cardsTaken;}
-	public int getCardsTaken() {return this.decks*52-this.cards.size();}
+	public int getCardsTaken() {return cardsTaken;}
 
 	@Override
 	public boolean equals(Object o) {
@@ -83,5 +84,12 @@ public class Shoe {
 
 	public int getId() {
 		return id;
+	}
+
+	public void reset() {
+		this.seed=new Random().nextLong();
+		this.cards.clear();
+		this.cardsTaken=0;
+		generate();
 	}
 }
