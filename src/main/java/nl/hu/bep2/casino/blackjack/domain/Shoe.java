@@ -13,7 +13,7 @@ public class Shoe {
 	private List<Card> cards;
 	@Id
 	@GeneratedValue
-	private int id;
+	private Long id;
 	@OneToOne(mappedBy="shoe")
 	private PlayTable table;
 	public Shoe(int decks) {
@@ -78,11 +78,11 @@ public class Shoe {
 				'}';
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 

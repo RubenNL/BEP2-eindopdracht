@@ -1,5 +1,7 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
+import nl.hu.bep2.casino.security.data.User;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -8,43 +10,52 @@ import java.util.Objects;
 public class PlayTable {
 	@Id
 	@GeneratedValue
-	private Integer id;
-	@OneToOne
+	private Long id;
+	@OneToOne(cascade=CascadeType.ALL)
 	@MapsId
 	private Shoe shoe;
 	@OneToOne(cascade=CascadeType.ALL)
-	private Player player;
+	private Hand playerHand;
 	@OneToOne(cascade=CascadeType.ALL)
-	private Player dealer;
-
+	private Hand dealerHand;
+	@OneToOne(cascade=CascadeType.MERGE)
+	private User user;
+	private int bet;
 	public PlayTable() {}
 	public PlayTable(Shoe shoe) {
 		this.shoe=shoe;
-		this.dealer=new Player(this);
+		this.dealerHand=new Hand(this);
+		this.playerHand=new Hand(this);
 	}
-	public void setPlayer(Player player) {
-		if(this.player!=null) throw new UnsupportedOperationException("player al defined!");
-		this.player=player;
+	public void setUser(User user) {
+		this.user=user;
 	}
 	public Shoe getShoe() {
 		return this.shoe;
 	}
-	public Player getDealer() {return this.dealer;}
+	public Hand getDealerHand() {return this.dealerHand;}
 
-	public Player getPlayer() {return this.player;}
+	public Hand getPlayerHand() {return this.playerHand;}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
+	}
+
+	public int getBet() {
+		return this.bet;
+	}
+	public void doubleBet() {
+		this.bet*=2;
 	}
 
 	public void reset() {
 		this.shoe.reset();
-		this.dealer.reset();
-		this.player.reset();
+		this.dealerHand.reset();
+		this.playerHand.reset();
 	}
 
 	@Override
@@ -53,11 +64,13 @@ public class PlayTable {
 		if (o == null || getClass() != o.getClass()) return false;
 		PlayTable playTable = (PlayTable) o;
 		return id.equals(playTable.id) &&
-				shoe.equals(playTable.shoe);
+				shoe.equals(playTable.shoe) &&
+				bet == playTable.bet;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, shoe);
+		return Objects.hash(id, shoe,bet);
 	}
+
 }

@@ -1,31 +1,26 @@
 package nl.hu.bep2.casino.blackjack.application;
 
 import nl.hu.bep2.casino.blackjack.application.strategies.HitStrategy;
-import nl.hu.bep2.casino.blackjack.data.SpringPlayerRepository;
+import nl.hu.bep2.casino.blackjack.data.SpringTableRepository;
 import nl.hu.bep2.casino.blackjack.domain.PlayTable;
-import nl.hu.bep2.casino.blackjack.domain.Player;
 import nl.hu.bep2.casino.chips.data.SpringChipsRepository;
 import nl.hu.bep2.casino.security.application.UserService;
 import nl.hu.bep2.casino.security.data.SpringUserRepository;
 import nl.hu.bep2.casino.security.data.User;
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.event.annotation.BeforeTestExecution;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @SpringBootTest
 public class HitTest {
 	@Autowired
-	private TableService tableService;
+	private BlackjackService blackjackService;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -33,11 +28,9 @@ public class HitTest {
 	@Autowired
 	private SpringUserRepository userRepository;
 	@Autowired
-	private HandService handService;
-	@Autowired
-	private SpringPlayerRepository playerRepository;
-	@Autowired
 	private HitStrategy hitStrategy;
+	@Autowired
+	private SpringTableRepository tableRepository;
 	@Test
 	void hitTest() {
 		try {
@@ -46,7 +39,7 @@ public class HitTest {
 				chipsRepository.delete(chipsRepository.findByUser(user).get());
 			} catch(Exception e) {}
 			try {
-				playerRepository.delete(playerRepository.findByUser(user).get());
+				tableRepository.delete(tableRepository.findByUser(user).get());
 			} catch(Exception e) {}
 			userRepository.delete(user);
 		} catch(Exception e) {
@@ -54,15 +47,14 @@ public class HitTest {
 		}
 		userService.register("admin","admin","ad","min");
 		User user=userService.loadUserByUsername("admin");
-		PlayTable table1=tableService.newTable(2,user);
-		PlayTable table2=tableService.getTable(user);
+		PlayTable table1= blackjackService.newTable(2,user);
+		PlayTable table2= blackjackService.getTable(user);
 		assertEquals(table1,table2,"newtable/table get werkt niet.");
-		Player player=playerRepository.findByUser(user).get();
-		System.out.println(player);
-		System.out.println(player.getId());
-		System.out.println(player.getHand());
-		handService.executeAction(player, hitStrategy);
-		assertEquals(1,playerRepository.findByUser(user).get().getHand().getCards().size());
-		assertEquals(1,playerRepository.findByUser(user).get().getTable().getShoe().getCardsTaken());
+		System.out.println("blackjackservice:"+blackjackService);
+		blackjackService.executeAction(
+				blackjackService
+						.getTable(user)
+						.getPlayerHand()
+				, hitStrategy);
 	}
 }

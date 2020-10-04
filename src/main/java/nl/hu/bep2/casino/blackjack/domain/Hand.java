@@ -1,5 +1,7 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,10 +13,14 @@ public class Hand {
 	private @Id @GeneratedValue int id;
 	@Convert(converter= CardsConverter.class)
 	private List<Card> cards=new ArrayList<>();
-	@OneToOne(mappedBy="hand", cascade=CascadeType.ALL)
-	private Player player;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JsonIgnore
+	private PlayTable table;
 	private boolean finished;
-	private int bet;
+	public Hand(PlayTable table) {
+		this.table=table;
+	}
+	public Hand() {}
 	private List<Integer> getPossibleTotalValues(List<Card> cards) {
 		List<Integer> values=new ArrayList<>();
 		List<Integer> currentCardValues=cards.get(0).getRank().possibleValues;
@@ -66,14 +72,8 @@ public class Hand {
 	}
 	public void finish() {this.finished=true;}
 	public boolean getFinished() {return this.finished;}
-	public int getBet() {
-		return this.bet;
-	}
-	public void doubleBet() {
-		this.bet*=2;
-	}
 	public int getId() {return this.id;}
-	public Player getPlayer() {return this.player;}
+	public PlayTable getTable() {return this.table;}
 
 	@Override
 	public boolean equals(Object o) {
@@ -81,13 +81,12 @@ public class Hand {
 		if (o == null || getClass() != o.getClass()) return false;
 		Hand hand = (Hand) o;
 		return id == hand.id &&
-				finished == hand.finished &&
-				bet == hand.bet;
+				finished == hand.finished;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, finished, bet);
+		return Objects.hash(id, finished);
 	}
 
 	@Override
@@ -95,7 +94,6 @@ public class Hand {
 		return "Hand{" +
 				"id=" + id +
 				", finished=" + finished +
-				", bet=" + bet +
 				'}';
 	}
 	public void reset() {
