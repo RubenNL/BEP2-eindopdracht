@@ -42,4 +42,15 @@ public class ChipsService {
 
         this.chipsRepository.save(chips);
     }
+    public boolean withdraw(String username, Long amount) {
+        User user = this.userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
+
+        Chips chips = this.chipsRepository.findByUser(user)
+                .orElse(new Chips(user, 0L));
+        if(chips.getAmount()<amount) return false;
+        chips.withdraw(amount);
+        this.chipsRepository.save(chips);
+        return true;
+    }
 }

@@ -5,8 +5,12 @@ import nl.hu.bep2.casino.blackjack.domain.PlayTable;
 public class TableDTO {
 	public final HandDTO player;
 	public final HandDTO dealer;
+	public final Long bet;
+	public final long tableId;
 	public TableDTO(PlayTable table) {
-		player=new HandDTO(table.getPlayerHand(),true);
-		dealer=new HandDTO(table.getDealerHand(),table.isPlayerFinished());
+		this.player=new HandDTO(table.getPlayerHand(),true);
+		this.dealer=new HandDTO(table.getDealerHand(),table.isPlayerFinished());
+		this.tableId=table.getId();
+		this.bet=table.getBet();
 	}
 }

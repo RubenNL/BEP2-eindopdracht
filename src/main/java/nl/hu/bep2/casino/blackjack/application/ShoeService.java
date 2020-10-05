@@ -16,12 +16,8 @@ public class ShoeService {
 		this.shoeRepository = shoeRepository;
 	}
 	public Card grabCard(PlayTable table) {
-		System.out.println("TABLE:"+table);
-		System.out.println(table.getShoe());
 		Shoe shoe=shoeRepository.findByTable(table).get();
-		System.out.println(shoe);
 		Card card=shoe.grabCard();
-		System.out.println(shoe);
 		shoeRepository.save(shoe);
 		return card;
 	}

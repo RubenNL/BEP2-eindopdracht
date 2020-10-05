@@ -1,11 +1,8 @@
 package nl.hu.bep2.casino.blackjack.application;
 
 import nl.hu.bep2.casino.blackjack.application.strategies.HitStrategy;
-import nl.hu.bep2.casino.blackjack.data.SpringTableRepository;
 import nl.hu.bep2.casino.blackjack.domain.PlayTable;
-import nl.hu.bep2.casino.chips.data.SpringChipsRepository;
 import nl.hu.bep2.casino.security.application.UserService;
-import nl.hu.bep2.casino.security.data.SpringUserRepository;
 import nl.hu.bep2.casino.security.data.User;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -23,37 +20,19 @@ public class HitTest {
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private SpringChipsRepository chipsRepository;
-	@Autowired
-	private SpringUserRepository userRepository;
-	@Autowired
 	private HitStrategy hitStrategy;
-	@Autowired
-	private SpringTableRepository tableRepository;
 	@Test
 	void hitTest() {
+		User user;
 		try {
-			User user=userService.loadUserByUsername("admin");
-			try {
-				chipsRepository.delete(chipsRepository.findByUser(user).get());
-			} catch(Exception e) {}
-			try {
-				tableRepository.delete(tableRepository.findByUser(user).get());
-			} catch(Exception e) {}
-			userRepository.delete(user);
+			user=userService.loadUserByUsername("admin");
 		} catch(Exception e) {
-			e.printStackTrace();
+			userService.register("admin","admin","ad","min");
+			user=userService.loadUserByUsername("admin");
 		}
-		userService.register("admin","admin","ad","min");
-		User user=userService.loadUserByUsername("admin");
 		PlayTable table1= blackjackService.newTable(2,user);
-		PlayTable table2= blackjackService.getTable(user);
+		PlayTable table2= blackjackService.getTable(table1.getId());
 		assertEquals(table1,table2,"newtable/table get werkt niet.");
-		System.out.println("blackjackservice:"+blackjackService);
-		blackjackService.executeAction(
-				blackjackService
-						.getTable(user)
-						.getPlayerHand()
-				, hitStrategy);
+		blackjackService.executeAction(blackjackService.getTable(table2.getId()).getPlayerHand(), hitStrategy);
 	}
 }

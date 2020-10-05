@@ -8,11 +8,14 @@ import java.util.List;
 public class HandDTO {
 	public final HandStates state;
 	public final List<Card> cards;
+	public final List<Integer> possibleValues;
 	public HandDTO(Hand hand,boolean showAllCards) {
-		if(hand.hasBlackjack()) state=HandStates.BLACKJACK;
+		possibleValues=hand.getPossibleTotalValues();
+		if(possibleValues.size()==0) state=HandStates.EMPTY;
+		else if(hand.hasBlackjack()) state=HandStates.BLACKJACK;
 		else if(hand.isBust()) state=HandStates.BUST;
 		else state=HandStates.PLAYING;
-		if(showAllCards || hand.hasBlackjack()) cards=hand.getCards();
+		if(state==HandStates.EMPTY || showAllCards || hand.hasBlackjack()) cards=hand.getCards();
 		else cards=hand.getCards().subList(0,1);
 	}
 }

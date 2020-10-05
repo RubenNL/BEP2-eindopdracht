@@ -20,7 +20,7 @@ public class PlayTable {
 	private Hand dealerHand;
 	@OneToOne(cascade=CascadeType.MERGE)
 	private User user;
-	private int bet;
+	private Long bet;
 	public PlayTable() {}
 	public PlayTable(Shoe shoe) {
 		this.shoe=shoe;
@@ -30,6 +30,7 @@ public class PlayTable {
 	public void setUser(User user) {
 		this.user=user;
 	}
+	public User getUser() {return this.user;}
 	public Shoe getShoe() {
 		return this.shoe;
 	}
@@ -44,8 +45,10 @@ public class PlayTable {
 	public Long getId() {
 		return id;
 	}
-
-	public int getBet() {
+	public void setBet(Long bet) {
+		this.bet=bet;
+	}
+	public Long getBet() {
 		return this.bet;
 	}
 	public void doubleBet() {

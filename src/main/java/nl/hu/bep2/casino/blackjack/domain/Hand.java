@@ -19,6 +19,7 @@ public class Hand {
 	public Hand() {}
 	private List<Integer> getPossibleTotalValues(List<Card> cards) {
 		List<Integer> values=new ArrayList<>();
+		if(cards.size()==0) return values;
 		List<Integer> currentCardValues=cards.get(0).getRank().possibleValues;
 		if(cards.size()>1) {
 			List<Integer> valuesOtherCards= getPossibleTotalValues(cards.subList(1,cards.size()));
