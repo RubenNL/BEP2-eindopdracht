@@ -6,7 +6,7 @@ import nl.hu.bep2.casino.blackjack.domain.Hand;
 import java.util.List;
 
 public class HandDTO {
-	public final HandStates state;
+	public HandStates state;
 	public final List<Card> cards;
 	public final List<Integer> possibleValues;
 	public HandDTO(Hand hand,boolean showAllCards) {
@@ -16,6 +16,7 @@ public class HandDTO {
 		else state=HandStates.PLAYING;
 		if(state==HandStates.EMPTY || showAllCards || hand.hasBlackjack()) cards=hand.getCards();
 		else cards=hand.getCards().subList(0,1);
+		if(cards.size()==1) state=HandStates.HIDDEN;
 		possibleValues=Hand.getPossibleTotalValues(cards);
 	}
 }

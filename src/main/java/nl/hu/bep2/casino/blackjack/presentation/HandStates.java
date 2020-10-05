@@ -4,5 +4,6 @@ public enum HandStates {
 	EMPTY,
 	PLAYING,
 	BLACKJACK,
-	BUST
+	BUST,
+	HIDDEN
 }

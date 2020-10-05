@@ -55,7 +55,11 @@ public class BlackjackService {
 		tableRepository.deleteById(id);
 	}
 	public void executeAction(Hand hand, HandStrategie strategy) {
+		if(hand.getTable().isPlayerFinished()) throw new UnsupportedOperationException("al gestopt!");
 		strategy.doStrategy(hand,hand.getTable());
 		handRepository.save(hand);
+	}
+	public void executeAction(Long id,HandStrategie strategy) {
+		executeAction(getTable(id).getPlayerHand(),strategy);
 	}
 }
