@@ -19,6 +19,9 @@
         <java.version>11</java.version>
         <casino.smalldeploy>compile</casino.smalldeploy><!--kan aangepast worden naar provided wanneer de libraries al zijn geupload.-->
         <casino.include>**</casino.include><!--als de static bestanden extern worden gehost, kan hier "*-INF/**" staan.-->
+        <jdbc.url>jdbc:postgresql://127.0.0.1:5432/bep2-huland-casino</jdbc.url>
+        <hibernate.sql></hibernate.sql>
+        <hibernate.descriptor.sql></hibernate.descriptor.sql>
     </properties>
     <dependencies>
         <dependency>
@@ -157,19 +160,25 @@
     </build>
     <profiles>
         <profile>
-            <id>github</id>
+            <id>test</id>
             <properties>
-                <jdbc.url>jdbc:postgresql://127.0.0.1:5432/bep2-huland-casino</jdbc.url>
+                <trimStackTrace>false</trimStackTrace>
+                <hibernate.sql>debug</hibernate.sql>
+                <hibernate.descriptor.sql>trace</hibernate.descriptor.sql>
             </properties>
         </profile>
         <profile>
-            <id>default</id>
+            <id>homeserver</id>
             <properties>
                 <jdbc.url>jdbc:postgresql://192.168.99.1:5432/bep2-huland-casino</jdbc.url>
             </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+        </profile>
+        <profile>
+            <id>smalldeploy</id>
+            <properties>
+                <casino.smalldeploy>provided</casino.smalldeploy>
+                <casino.include>*-INF/**,org/**</casino.include>
+            </properties>
         </profile>
     </profiles>
 </project>

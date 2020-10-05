@@ -22,19 +22,15 @@ public class ActionBean {
 			this.standStrategy=standStrategy;
 			this.doubleDownStrategy=doubleDownStrategy;
 			actionBean=this;
-			System.out.println("ActionBeanInit1");
 		} else {
 			this.hitStrategy = actionBean.hitStrategy;
 			this.standStrategy = actionBean.standStrategy;
 			this.doubleDownStrategy = actionBean.doubleDownStrategy;
-			System.out.println("ActionBeanInit2");
 		}
 	}
 
 	public String action;
 	public HandStrategie getStrategy() {
-		System.out.println(action);
-		System.out.println(hitStrategy);
 		if(action.equals("hit")) return hitStrategy;
 		if(action.equals("stand")) return standStrategy;
 		if(action.equals("double") || action.equals("doubledown")) return doubleDownStrategy;

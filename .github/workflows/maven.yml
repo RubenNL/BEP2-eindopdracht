@@ -32,4 +32,4 @@ jobs:
         postgresql user: bep2-huland-casino
         postgresql password: bep2-huland-casino
     - name: Build with Maven
-      run: mvn -B package --file pom.xml -Pgithub
+      run: mvn -B package --file pom.xml -Ptest
