@@ -1,8 +1,5 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
 import java.io.Serializable;
 import java.util.Objects;
 
