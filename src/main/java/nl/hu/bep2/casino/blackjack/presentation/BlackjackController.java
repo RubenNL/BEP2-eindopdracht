@@ -37,8 +37,8 @@ public class BlackjackController {
 	public void setBet(@PathVariable long id, @RequestBody Bet bet) {
 		blackjackService.startRound(id,bet.bet);
 	}
-	@PostMapping(value="/{id}/hit")
-	public void hit(@PathVariable long id) {
-		blackjackService.executeAction(id,hitStrategy);
+	@PostMapping(value="/{id}/action")
+	public void hit(@PathVariable long id,@RequestBody ActionBean bean) {
+		blackjackService.executeAction(id,bean.getStrategy());
 	}
 }
