@@ -46,6 +46,7 @@ public class BlackjackService {
 		executeAction(table.getPlayerHand(), hitStrategy);
 		executeAction(table.getPlayerHand(), hitStrategy);
 		executeAction(table.getDealerHand(),hitStrategy);
+		executeAction(table.getDealerHand(),hitStrategy);
 		tableRepository.save(table);
 		return table;
 	}

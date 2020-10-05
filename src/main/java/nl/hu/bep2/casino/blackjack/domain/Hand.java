@@ -1,7 +1,5 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,9 +12,7 @@ public class Hand {
 	@Convert(converter= CardsConverter.class)
 	private List<Card> cards=new ArrayList<>();
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JsonIgnore
 	private PlayTable table;
-	private boolean finished;
 	public Hand(PlayTable table) {
 		this.table=table;
 	}
@@ -70,8 +66,6 @@ public class Hand {
 	public List<Card> getCards() {
 		return Collections.unmodifiableList(cards);
 	}
-	public void finish() {this.finished=true;}
-	public boolean getFinished() {return this.finished;}
 	public int getId() {return this.id;}
 	public PlayTable getTable() {return this.table;}
 
@@ -80,20 +74,18 @@ public class Hand {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Hand hand = (Hand) o;
-		return id == hand.id &&
-				finished == hand.finished;
+		return id == hand.id;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, finished);
+		return Objects.hash(id);
 	}
 
 	@Override
 	public String toString() {
 		return "Hand{" +
 				"id=" + id +
-				", finished=" + finished +
 				'}';
 	}
 	public void reset() {

@@ -22,8 +22,8 @@ public class BlackjackController {
 	}
 
 	@PostMapping
-	public PlayTable createGame(Authentication authentication) {
+	public TableDTO createGame(Authentication authentication) {
 		User user = userService.loadUserByUsername(((UserProfile) authentication.getPrincipal()).getUsername());
-		return blackjackService.newTable(2,user);
+		return new TableDTO(blackjackService.newTable(2,user));
 	}
 }
