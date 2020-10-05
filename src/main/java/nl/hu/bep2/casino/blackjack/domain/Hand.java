@@ -17,7 +17,7 @@ public class Hand {
 		this.table=table;
 	}
 	public Hand() {}
-	private List<Integer> getPossibleTotalValues(List<Card> cards) {
+	public static List<Integer> getPossibleTotalValues(List<Card> cards) {
 		List<Integer> values=new ArrayList<>();
 		if(cards.size()==0) return values;
 		List<Integer> currentCardValues=cards.get(0).getRank().possibleValues;

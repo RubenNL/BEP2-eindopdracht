@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name="shoes")
 public class Shoe {
 	private int decks;
 	private long seed;
@@ -53,7 +52,8 @@ public class Shoe {
 	public long getSeed() {return this.seed;}
 	public void setCardsTaken(int cardsTaken) {this.cardsTaken=cardsTaken;}
 	public int getCardsTaken() {return cardsTaken;}
-
+	public int getDecks() {return this.decks;}
+	public int getCardsAvailable() {return this.cards.size();}
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
