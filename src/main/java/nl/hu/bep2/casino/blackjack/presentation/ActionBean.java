@@ -1,9 +1,6 @@
 package nl.hu.bep2.casino.blackjack.presentation;
 
-import nl.hu.bep2.casino.blackjack.application.strategies.DoubleDownStrategy;
-import nl.hu.bep2.casino.blackjack.application.strategies.HandStrategie;
-import nl.hu.bep2.casino.blackjack.application.strategies.HitStrategy;
-import nl.hu.bep2.casino.blackjack.application.strategies.StandStrategy;
+import nl.hu.bep2.casino.blackjack.application.strategies.*;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -16,16 +13,19 @@ public class ActionBean {
 	private HitStrategy hitStrategy;
 	private StandStrategy standStrategy;
 	private DoubleDownStrategy doubleDownStrategy;
-	public ActionBean(HitStrategy hitStrategy,StandStrategy standStrategy,DoubleDownStrategy doubleDownStrategy) {
+	private SurrenderStrategy surrenderStrategy;
+	public ActionBean(HitStrategy hitStrategy,StandStrategy standStrategy,DoubleDownStrategy doubleDownStrategy,SurrenderStrategy surrenderStrategy) {
 		if(this.actionBean==null) {
 			this.hitStrategy=hitStrategy;
 			this.standStrategy=standStrategy;
 			this.doubleDownStrategy=doubleDownStrategy;
+			this.surrenderStrategy=surrenderStrategy;
 			actionBean=this;
 		} else {
 			this.hitStrategy = actionBean.hitStrategy;
 			this.standStrategy = actionBean.standStrategy;
 			this.doubleDownStrategy = actionBean.doubleDownStrategy;
+			this.surrenderStrategy = actionBean.surrenderStrategy;
 		}
 	}
 
@@ -34,6 +34,7 @@ public class ActionBean {
 		if(action.equals("hit")) return hitStrategy;
 		if(action.equals("stand")) return standStrategy;
 		if(action.equals("double") || action.equals("doubledown")) return doubleDownStrategy;
+		if(action.equals("surrender")) return surrenderStrategy;
 		throw new UnsupportedOperationException("strategy not found");
 	}
 }

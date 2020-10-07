@@ -32,6 +32,7 @@ public class Shoe {
 		return cards.size();
 	}
 	public Card grabCard() {
+		if(cardsAvailable()==0) reset();
 		cardsTaken++;
 		return cards.remove(0);
 	}

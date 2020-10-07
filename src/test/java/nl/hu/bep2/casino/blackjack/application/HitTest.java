@@ -33,6 +33,7 @@ public class HitTest {
 		PlayTable table1= blackjackService.newTable(2,user);
 		PlayTable table2= blackjackService.getTable(table1.getId());
 		assertEquals(table1,table2,"newtable/table get werkt niet.");
+		blackjackService.startRound(table1.getId(),10L);
 		blackjackService.executeAction(blackjackService.getTable(table2.getId()).getPlayerHand(), hitStrategy);
 	}
 }

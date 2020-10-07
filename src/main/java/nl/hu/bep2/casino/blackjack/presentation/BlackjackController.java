@@ -41,4 +41,8 @@ public class BlackjackController {
 	public void hit(@PathVariable long id,@RequestBody ActionBean bean) {
 		blackjackService.executeAction(id,bean.getStrategy());
 	}
+	@PostMapping(value="/{id}/dealer")
+	public void dealerStep(@PathVariable long id) {
+		blackjackService.dealerStep(id);
+	}
 }

@@ -3,7 +3,6 @@ package nl.hu.bep2.casino.blackjack.application;
 import nl.hu.bep2.casino.blackjack.application.strategies.HandStrategie;
 import nl.hu.bep2.casino.blackjack.application.strategies.HitStrategy;
 import nl.hu.bep2.casino.blackjack.data.SpringHandRepository;
-import nl.hu.bep2.casino.blackjack.data.SpringShoeRepository;
 import nl.hu.bep2.casino.blackjack.data.SpringTableRepository;
 import nl.hu.bep2.casino.blackjack.domain.Hand;
 import nl.hu.bep2.casino.blackjack.domain.PlayTable;
@@ -18,13 +17,11 @@ import javax.transaction.Transactional;
 @Service
 public class BlackjackService {
 	private final SpringTableRepository tableRepository;
-	private final SpringShoeRepository shoeRepository;
 	private final SpringHandRepository handRepository;
 	private final HitStrategy hitStrategy;
 	private final ChipsService chipsService;
-	public BlackjackService(SpringTableRepository tableRepository, SpringShoeRepository shoeRepository, SpringHandRepository handRepository, HitStrategy hitStrategy, ChipsService chipsService) {
+	public BlackjackService(SpringTableRepository tableRepository, SpringHandRepository handRepository, HitStrategy hitStrategy, ChipsService chipsService) {
 		this.tableRepository = tableRepository;
-		this.shoeRepository=shoeRepository;
 		this.handRepository=handRepository;
 		this.hitStrategy=hitStrategy;
 		this.chipsService=chipsService;
@@ -56,10 +53,37 @@ public class BlackjackService {
 	}
 	public void executeAction(Hand hand, HandStrategie strategy) {
 		if(hand.getTable().isPlayerFinished()) throw new UnsupportedOperationException("al gestopt!");
+		if(hand.isBust()) throw new UnsupportedOperationException("bust!");
+		if(hand.getTable().getBet()==0) throw new UnsupportedOperationException("niet gestart!");
 		strategy.doStrategy(hand,hand.getTable());
 		handRepository.save(hand);
+		if(hand.hasBlackjack()) {
+			chipsService.depositChips(hand.getTable().getUser().getUsername(), (long) (hand.getTable().getBet()*2.5));
+			hand.getTable().setBet(0L);
+		}
 	}
 	public void executeAction(Long id,HandStrategie strategy) {
 		executeAction(getTable(id).getPlayerHand(),strategy);
+	}
+	public void dealerStep(Long id) {
+		PlayTable table=getTable(id);
+		Hand dealerHand=table.getDealerHand();
+		Hand playerHand=table.getPlayerHand();
+		boolean dealerDone=false;
+		if(dealerHand.getPossibleTotalValues().contains(21)) dealerDone=true;
+		for(int value:dealerHand.getPossibleTotalValues()) {
+			if(value>16 && value<22) dealerDone=true;
+		}
+		if(dealerDone) {
+			if(table.getBet()==0) {
+				dealerHand.reset();
+				playerHand.reset();
+				return;
+			}
+			if(playerHand.distanceTo21() < dealerHand.distanceTo21()) chipsService.depositChips(table.getUser().getUsername(),table.getBet()*2);//PLAYER CLOSER TO 21
+			if(playerHand.distanceTo21() == dealerHand.distanceTo21()) chipsService.depositChips(table.getUser().getUsername(), table.getBet());//PUSH
+			table.setBet(0L);
+		} else executeAction(dealerHand,hitStrategy);
+		handRepository.save(dealerHand);
 	}
 }

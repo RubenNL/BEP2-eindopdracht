@@ -36,7 +36,9 @@ public class Hand {
 		return getPossibleTotalValues(cards);
 	}
 	public int getMinValue() {
-		return getPossibleTotalValues().get(0);
+		List<Integer> values=getPossibleTotalValues();
+		if(values.size()==0) values.add(0);
+		return values.get(0);
 	}
 	public int getMaxValue() {
 		List<Integer> possibleValues= getPossibleTotalValues();
@@ -45,10 +47,11 @@ public class Hand {
 	public int closestTo21() {
 		List<Integer> possibleValues= getPossibleTotalValues();
 		Collections.reverse(possibleValues);
-		while(true) {
+		while(possibleValues.size()>0) {
 			int value=possibleValues.remove(0);
 			if(value<22) return value;
 		}
+		return 0;
 	}
 	public int distanceTo21() {
 		return 21-closestTo21();

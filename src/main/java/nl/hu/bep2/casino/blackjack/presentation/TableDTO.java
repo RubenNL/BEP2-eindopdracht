@@ -10,7 +10,7 @@ public class TableDTO {
 	public final ShoeDTO shoe;
 	public TableDTO(PlayTable table) {
 		this.player=new HandDTO(table.getPlayerHand(),true);
-		this.dealer=new HandDTO(table.getDealerHand(),table.isPlayerFinished());
+		this.dealer=new HandDTO(table.getDealerHand(),player.state!=HandStates.PLAYING);
 		this.shoe=new ShoeDTO(table.getShoe());
 		this.tableId=table.getId();
 		this.bet=table.getBet();
