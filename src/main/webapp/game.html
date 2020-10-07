@@ -1,6 +1,13 @@
 <html>
     <head>
         <link rel="stylesheet" href="card.css">
+        <style>
+            pre {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+        </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
@@ -8,49 +15,33 @@
             <h1>kaarten:</h1>
             <p id="card"></p>
         </div>
-        <playTable id="game">
-            <tr>
-                <td></td>
-                <td></td>
-                <td>Dealer</td>
-                <td>shoe</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td class="handTd" playerId="0"></td>
-                <td id="shoe"></td>
-            </tr>
-            <tr id="playerNames">
-                <td>playernames:</td>
-            </tr>
-            <tr id="players">
-                <td>handen:</td>
-            </tr>
-            <tr id="bets">
-                <td>inzet:</td>
-            </tr>
-        </playTable>
+        <button id="login">LOGIN</button>
+        JWT:<input id="jwt"><br>
+        <button id="newTable">newTable</button>
+        ID:<input type="number" id="tableid"><br>
+        bet:<input type="number" id="bet"><button id="sendBet">sendBet</button><br>
+        playerCards:
+        <div id="playerCards"></div>
+        dealerCards:
+        <div id="dealerCards"></div>
+        <span id="betShow"></span>
         <button id="hit">HIT</button>
         <button id="stand">STAND</button>
-        <button id="split">SPLIT</button>
-        <br>
-        <template id="player">
-            <td class="handTd" playerId="1">
-                <playTable class="player">
-                </playTable>
-            </td>
-        </template>
+        <button id="double">DOUBLE</button>
+        <button id="dealer">DEALER</button>
+        <button id="show">SHOW</button>
+        response:
+        <pre id="response">
         <script src="card.js"></script>
         <script>
-            for(let x=0;x<4;x++) {
+            /*for(let x=0;x<4;x++) {
                 for(let y=0;y<13;y++) {
                     document.getElementById('card').innerHTML+=getCardHTML(x,y);
                 }
                 document.getElementById('card').innerHTML+='<br>'
-            }
+            }*/
         </script>
-        <script src="gui.js"></script>
         <script src="exampleData.js"></script>
+        <script src="play.js"></script>
     </body>
 </html>
