@@ -52,14 +52,17 @@ public class BlackjackService {
 		tableRepository.deleteById(id);
 	}
 	public void executeAction(Hand hand, HandStrategie strategy) {
-		if(hand.getTable().isPlayerFinished()) throw new UnsupportedOperationException("al gestopt!");
+		if(hand.isFinished()) throw new UnsupportedOperationException("al gestopt!");
 		if(hand.isBust()) throw new UnsupportedOperationException("bust!");
 		if(hand.getTable().getBet()==0) throw new UnsupportedOperationException("niet gestart!");
 		strategy.doStrategy(hand,hand.getTable());
 		handRepository.save(hand);
-		if(hand.hasBlackjack()) {
-			chipsService.depositChips(hand.getTable().getUser().getUsername(), (long) (hand.getTable().getBet()*2.5));
-			hand.getTable().setBet(0L);
+		if(hand.getTable().getPlayerHand().equals(hand)) {
+			if (hand.hasBlackjack()) {
+				chipsService.depositChips(hand.getTable().getUser().getUsername(), (long) (hand.getTable().getBet() * 2.5));
+				hand.getTable().setBet(0L);
+			}
+			if(hand.isBust()) hand.getTable().setBet(0L);
 		}
 	}
 	public void executeAction(Long id,HandStrategie strategy) {
@@ -69,17 +72,17 @@ public class BlackjackService {
 		PlayTable table=getTable(id);
 		Hand dealerHand=table.getDealerHand();
 		Hand playerHand=table.getPlayerHand();
+		if(table.getBet()==0) {
+			dealerHand.reset();
+			playerHand.reset();
+			return;
+		}
 		boolean dealerDone=false;
 		if(dealerHand.getPossibleTotalValues().contains(21)) dealerDone=true;
 		for(int value:dealerHand.getPossibleTotalValues()) {
 			if(value>16 && value<22) dealerDone=true;
 		}
 		if(dealerDone) {
-			if(table.getBet()==0) {
-				dealerHand.reset();
-				playerHand.reset();
-				return;
-			}
 			if(playerHand.distanceTo21() < dealerHand.distanceTo21()) chipsService.depositChips(table.getUser().getUsername(),table.getBet()*2);//PLAYER CLOSER TO 21
 			if(playerHand.distanceTo21() == dealerHand.distanceTo21()) chipsService.depositChips(table.getUser().getUsername(), table.getBet());//PUSH
 			table.setBet(0L);

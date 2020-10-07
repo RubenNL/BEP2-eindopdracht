@@ -51,12 +51,8 @@ public class PlayTable {
 		return this.bet;
 	}
 	public void doubleBet() {
-		this.bet*=2;
+		this.bet *= 2;
 	}
-	private boolean playerFinished;
-	public void playerFinish() {this.playerFinished=true;}
-	public boolean isPlayerFinished() {return this.playerFinished;}
-
 	public void reset() {
 		this.shoe.reset();
 		this.dealerHand.reset();

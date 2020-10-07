@@ -13,6 +13,7 @@ public class Hand {
 	private List<Card> cards=new ArrayList<>();
 	@ManyToOne(cascade=CascadeType.ALL)
 	private PlayTable table;
+	private boolean finished;
 	public Hand(PlayTable table) {
 		this.table=table;
 	}
@@ -72,7 +73,8 @@ public class Hand {
 	}
 	public int getId() {return this.id;}
 	public PlayTable getTable() {return this.table;}
-
+	public void finish() {this.finished=true;}
+	public boolean isFinished() {return this.finished;}
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -94,5 +96,6 @@ public class Hand {
 	}
 	public void reset() {
 		this.cards.clear();
+		this.finished=false;
 	}
 }

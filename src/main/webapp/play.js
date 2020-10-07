@@ -43,13 +43,14 @@ function sendDelete(path) {
 }
 
 function getPlayerHtml(player) {
-	return player.state+player.cards.map(card=>getCardHTML(card.face,card.rank)).join('');
+	return player.state+player.cards.map(card=>getCardHTML(card.face,card.rank)).join('')+'('+player.possibleValues.join('/')+')';
 }
 $('#show').on('click',()=>{
 	sendGet('blackjack/'+$('#tableid').val()).then(data=>{
 		$('#playerCards').html(getPlayerHtml(data.player));
 		$('#dealerCards').html(getPlayerHtml(data.dealer));
 		$('#betShow').text(data.bet);
+		$('#shoe').text("kaarten gepakt:"+data.shoe.cardsTaken+'\nKaarten over:'+data.shoe.availableCards+'\ndecks:'+data.shoe.decks);
 	})
 })
 $('#hit').on('click',()=> {

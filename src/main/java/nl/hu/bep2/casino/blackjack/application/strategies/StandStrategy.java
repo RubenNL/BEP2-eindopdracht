@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 public class StandStrategy implements HandStrategie {
 	@Override
 	public void doStrategy(Hand hand, PlayTable table) {
-		table.playerFinish();
+		hand.finish();
 	}
 }

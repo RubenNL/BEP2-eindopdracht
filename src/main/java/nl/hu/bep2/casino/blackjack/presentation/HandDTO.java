@@ -13,6 +13,7 @@ public class HandDTO {
 		if(hand.getCards().size()==0) state=HandStates.EMPTY;
 		else if(hand.hasBlackjack()) state=HandStates.BLACKJACK;
 		else if(hand.isBust()) state=HandStates.BUST;
+		else if(hand.isFinished()) state=HandStates.STAND;
 		else state=HandStates.PLAYING;
 		if(state==HandStates.EMPTY || showAllCards || hand.hasBlackjack()) cards=hand.getCards();
 		else cards=hand.getCards().subList(0,1);
