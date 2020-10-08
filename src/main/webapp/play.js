@@ -72,7 +72,7 @@ $("#login").on('click',()=> {
 	fetch("login", {
 		method: "POST",
 		headers: {'Content-Type': 'application/json'},
-		body: JSON.stringify({username: "admin", password: "admin"})
+		body: JSON.stringify({username: $('#username').val(), password: $('#password').val()})
 	})
 		.then(response => {
 			$('#jwt').val(response.headers.get("Authorization").split(' ')[1])
