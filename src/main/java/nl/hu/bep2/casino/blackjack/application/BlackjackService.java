@@ -79,7 +79,7 @@ public class BlackjackService {
 			playerHand.reset();
 			return;
 		}
-		boolean dealerDone=false;
+		boolean dealerDone=dealerHand.isBust();
 		if(dealerHand.getPossibleTotalValues().contains(21)) dealerDone=true;
 		for(int value:dealerHand.getPossibleTotalValues()) {
 			if(value>16 && value<22) dealerDone=true;
