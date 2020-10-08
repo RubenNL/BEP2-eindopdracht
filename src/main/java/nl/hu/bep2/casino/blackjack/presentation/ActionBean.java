@@ -1,6 +1,7 @@
 package nl.hu.bep2.casino.blackjack.presentation;
 
 import nl.hu.bep2.casino.blackjack.application.strategies.*;
+import nl.hu.bep2.casino.blackjack.exceptions.GameStateException;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -35,6 +36,6 @@ public class ActionBean {
 		if(action.equals("stand")) return standStrategy;
 		if(action.equals("double") || action.equals("doubledown")) return doubleDownStrategy;
 		if(action.equals("surrender")) return surrenderStrategy;
-		throw new UnsupportedOperationException("strategy not found");
+		throw new IllegalArgumentException("strategy not found");
 	}
 }

@@ -1,7 +1,6 @@
 package nl.hu.bep2.casino.blackjack.presentation;
 
 import nl.hu.bep2.casino.blackjack.application.BlackjackService;
-import nl.hu.bep2.casino.blackjack.application.strategies.HitStrategy;
 import nl.hu.bep2.casino.security.application.UserService;
 import nl.hu.bep2.casino.security.data.User;
 import nl.hu.bep2.casino.security.data.UserProfile;
@@ -13,9 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class BlackjackController {
 	private final BlackjackService blackjackService;
 	private final UserService userService;
-	private final HitStrategy hitStrategy;
-	public BlackjackController(BlackjackService blackjackService, UserService userService,HitStrategy hitStrategy) {
-		this.hitStrategy=hitStrategy;
+	public BlackjackController(BlackjackService blackjackService, UserService userService) {
 		this.blackjackService = blackjackService;
 		this.userService=userService;
 	}

@@ -7,6 +7,8 @@ import nl.hu.bep2.casino.blackjack.data.SpringTableRepository;
 import nl.hu.bep2.casino.blackjack.domain.Hand;
 import nl.hu.bep2.casino.blackjack.domain.PlayTable;
 import nl.hu.bep2.casino.blackjack.domain.Shoe;
+import nl.hu.bep2.casino.blackjack.exceptions.FundsException;
+import nl.hu.bep2.casino.blackjack.exceptions.GameStateException;
 import nl.hu.bep2.casino.chips.application.ChipsService;
 import nl.hu.bep2.casino.security.data.User;
 import org.springframework.stereotype.Service;
@@ -37,7 +39,7 @@ public class BlackjackService {
 	}
 	public void startRound(Long id, Long bet) {
 		PlayTable table=getTable(id);
-		if(!chipsService.withdraw(table.getUser().getUsername(),bet)) throw new IllegalArgumentException("NOT ENOUGH CHIPS!");
+		if(!chipsService.withdraw(table.getUser().getUsername(),bet)) throw new FundsException("NOT ENOUGH CHIPS!");
 		table.setBet(bet);
 		executeAction(table.getPlayerHand(), hitStrategy);
 		executeAction(table.getPlayerHand(), hitStrategy);
@@ -52,9 +54,9 @@ public class BlackjackService {
 		tableRepository.deleteById(id);
 	}
 	public void executeAction(Hand hand, HandStrategie strategy) {
-		if(hand.isFinished()) throw new UnsupportedOperationException("al gestopt!");
-		if(hand.isBust()) throw new UnsupportedOperationException("bust!");
-		if(hand.getTable().getBet()==0) throw new UnsupportedOperationException("niet gestart!");
+		if(hand.isFinished()) throw new GameStateException("already standing!");
+		if(hand.isBust()) throw new GameStateException("bust!");
+		if(hand.getTable().getBet()==0) throw new GameStateException("niet gestart!");
 		strategy.doStrategy(hand,hand.getTable());
 		handRepository.save(hand);
 		if(hand.getTable().getPlayerHand().equals(hand)) {

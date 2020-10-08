@@ -2,6 +2,7 @@ package nl.hu.bep2.casino.blackjack.application.strategies;
 
 import nl.hu.bep2.casino.blackjack.domain.Hand;
 import nl.hu.bep2.casino.blackjack.domain.PlayTable;
+import nl.hu.bep2.casino.blackjack.exceptions.FundsException;
 import nl.hu.bep2.casino.chips.application.ChipsService;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,7 @@ public class DoubleDownStrategy implements HandStrategie {
 	}
 	@Override
 	public void doStrategy(Hand hand, PlayTable table) {
-		if(!chipsService.withdraw(table.getUser().getUsername(), table.getBet())) throw new IllegalArgumentException("Not enough chips");
+		if(!chipsService.withdraw(table.getUser().getUsername(), table.getBet())) throw new FundsException("Not enough chips");
 		hitStrategy.doStrategy(hand,table);
 		table.doubleBet();
 		standStrategy.doStrategy(hand,table);
