@@ -38,6 +38,7 @@ public class BlackjackService {
 		return table;
 	}
 	public void startRound(Long id, Long bet) {
+		if(bet<1) throw new FundsException("bet te laag!");
 		PlayTable table=getTable(id);
 		if(!chipsService.withdraw(table.getUser().getUsername(),bet)) throw new FundsException("NOT ENOUGH CHIPS!");
 		table.setBet(bet);
