@@ -9,11 +9,13 @@ import nl.hu.bep2.casino.blackjack.domain.PlayTable;
 import nl.hu.bep2.casino.blackjack.domain.Shoe;
 import nl.hu.bep2.casino.blackjack.exceptions.FundsException;
 import nl.hu.bep2.casino.blackjack.exceptions.GameStateException;
+import nl.hu.bep2.casino.blackjack.exceptions.NotFoundException;
 import nl.hu.bep2.casino.chips.application.ChipsService;
 import nl.hu.bep2.casino.security.data.User;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Transactional
 @Service
@@ -38,8 +40,10 @@ public class BlackjackService {
 		return table;
 	}
 	public void startRound(Long id, Long bet) {
+		if(bet==null) throw new FundsException("geen bet opgegeven!");
 		if(bet<1) throw new FundsException("bet te laag!");
 		PlayTable table=getTable(id);
+		if(table.getBet()!=null && table.getBet()>0) throw new GameStateException("game al gestart!");
 		if(!chipsService.withdraw(table.getUser().getUsername(),bet)) throw new FundsException("NOT ENOUGH CHIPS!");
 		table.setBet(bet);
 		executeAction(table.getPlayerHand(), hitStrategy);
@@ -49,7 +53,9 @@ public class BlackjackService {
 		tableRepository.save(table);
 	}
 	public PlayTable getTable(Long id) {
-		return tableRepository.findById(id).get();
+		Optional<PlayTable> table=tableRepository.findById(id);
+		if(table.isEmpty()) throw new NotFoundException("table not found!");
+		return table.get();
 	}
 	public void deleteTable(Long id) {
 		tableRepository.deleteById(id);
