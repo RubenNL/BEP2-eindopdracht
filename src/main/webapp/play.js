@@ -62,11 +62,17 @@ $('#double').on('click',()=> {
 $('#stand').on('click',()=> {
 	sendPost('blackjack/'+$('#tableid').val()+'/action',{action:'stand'}).then(()=>$('#show').click());
 })
+$('#surrender').on('click',()=> {
+	sendPost('blackjack/'+$('#tableid').val()+'/action',{action:'surrender'}).then(()=>$('#show').click());
+})
 $("#dealer").on('click',()=>{
 	sendPost('blackjack/'+$('#tableid').val()+'/dealer').then(()=>$('#show').click());
 })
 $('#sendBet').on("click",()=>{
 	sendPost('blackjack/'+$('#tableid').val()+'/bet',{bet:$('#bet').val()}).then(()=>$('#show').click());
+})
+$('#delete').on("click",()=>{
+	sendDelete('blackjack/'+$('#tableid').val());
 })
 $("#login").on('click',()=> {
 	fetch("login", {

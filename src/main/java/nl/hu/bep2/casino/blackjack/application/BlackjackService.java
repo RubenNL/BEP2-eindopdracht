@@ -63,7 +63,7 @@ public class BlackjackService {
 	public void executeAction(Hand hand, HandStrategie strategy) {
 		if(hand.isFinished()) throw new GameStateException("already standing!");
 		if(hand.isBust()) throw new GameStateException("bust!");
-		if(hand.getTable().getBet()==0) throw new GameStateException("niet gestart!");
+		if(hand.getTable().getBet()==null || hand.getTable().getBet()==0) throw new GameStateException("niet gestart!");
 		strategy.doStrategy(hand,hand.getTable());
 		handRepository.save(hand);
 		if(hand.getTable().getPlayerHand().equals(hand)) {
@@ -81,6 +81,8 @@ public class BlackjackService {
 		PlayTable table=getTable(id);
 		Hand dealerHand=table.getDealerHand();
 		Hand playerHand=table.getPlayerHand();
+		if(table.getBet()==null) throw new GameStateException("niet gestart!");
+		if(dealerHand.getCards().size()==0) throw new GameStateException("niet gestart!");
 		if(table.getBet()==0) {
 			dealerHand.reset();
 			playerHand.reset();
