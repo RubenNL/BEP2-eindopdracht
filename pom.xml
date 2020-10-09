@@ -20,9 +20,9 @@
         <casino.smalldeploy>compile</casino.smalldeploy><!--kan aangepast worden naar provided wanneer de libraries al zijn geupload.-->
         <casino.include>**</casino.include><!--als de static bestanden extern worden gehost, kan hier "*-INF/**" staan.-->
         <jdbc.url>jdbc:postgresql://127.0.0.1:5432/bep2-huland-casino</jdbc.url>
-        <casino.exclude></casino.exclude>
-        <hibernate.sql></hibernate.sql>
-        <hibernate.descriptor.sql></hibernate.descriptor.sql>
+        <casino.exclude/>
+        <hibernate.sql/>
+        <hibernate.descriptor.sql/>
     </properties>
     <dependencies>
         <dependency>

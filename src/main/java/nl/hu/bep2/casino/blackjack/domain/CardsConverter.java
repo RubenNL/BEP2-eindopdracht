@@ -9,7 +9,6 @@ import java.util.List;
 public class CardsConverter implements AttributeConverter<List<Card>, String> {
 		@Override
 		public String convertToDatabaseColumn(List<Card> cards) {
-			String response="";
 			List<String> stringied=new ArrayList<>();
 			for(Card card:cards) stringied.add(card.getFace().name()+"-"+card.getRank().name());
 			return String.join(",",stringied);

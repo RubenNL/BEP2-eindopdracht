@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Hand {
 	private @Id @GeneratedValue int id;
 	@Convert(converter= CardsConverter.class)
-	private List<Card> cards=new ArrayList<>();
+	private final List<Card> cards=new ArrayList<>();
 	@ManyToOne(cascade=CascadeType.ALL)
 	private PlayTable table;
 	private boolean finished;

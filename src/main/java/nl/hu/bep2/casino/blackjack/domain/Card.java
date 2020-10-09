@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Card implements Serializable {
-	private Faces face;
-	private Rank rank;
+	private final Faces face;
+	private final Rank rank;
 
 	public Card(Faces face, Rank rank) {
 		this.face = face;

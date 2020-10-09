@@ -30,9 +30,6 @@ public class BlackjackService {
 		this.hitStrategy=hitStrategy;
 		this.chipsService=chipsService;
 	}
-	private boolean hasTable(User user) {
-		return tableRepository.findByUser(user).isPresent();
-	}
 	public PlayTable newTable(int decks, User user) {
 		PlayTable table = new PlayTable(new Shoe(decks));
 		table.setUser(user);
@@ -93,7 +90,10 @@ public class BlackjackService {
 		boolean dealerDone=dealerHand.isBust();
 		if(dealerHand.getPossibleTotalValues().contains(21)) dealerDone=true;
 		for(int value:dealerHand.getPossibleTotalValues()) {
-			if(value>16 && value<22) dealerDone=true;
+			if (value > 16 && value < 22) {
+				dealerDone = true;
+				break;
+			}
 		}
 		if(!playerHand.isBust() && !playerHand.hasBlackjack() && !playerHand.isFinished() && !dealerHand.hasBlackjack()) throw new GameStateException("player playing!");
 		if(dealerDone) {

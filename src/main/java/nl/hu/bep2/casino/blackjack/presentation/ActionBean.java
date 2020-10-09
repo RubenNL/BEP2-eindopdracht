@@ -1,7 +1,6 @@
 package nl.hu.bep2.casino.blackjack.presentation;
 
 import nl.hu.bep2.casino.blackjack.application.strategies.*;
-import nl.hu.bep2.casino.blackjack.exceptions.GameStateException;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -11,12 +10,12 @@ import javax.transaction.Transactional;
 public class ActionBean {
 	//SINGLETON
 	private static ActionBean actionBean;
-	private HitStrategy hitStrategy;
-	private StandStrategy standStrategy;
-	private DoubleDownStrategy doubleDownStrategy;
-	private SurrenderStrategy surrenderStrategy;
+	private final HitStrategy hitStrategy;
+	private final StandStrategy standStrategy;
+	private final DoubleDownStrategy doubleDownStrategy;
+	private final SurrenderStrategy surrenderStrategy;
 	public ActionBean(HitStrategy hitStrategy,StandStrategy standStrategy,DoubleDownStrategy doubleDownStrategy,SurrenderStrategy surrenderStrategy) {
-		if(this.actionBean==null) {
+		if(actionBean==null) {
 			this.hitStrategy=hitStrategy;
 			this.standStrategy=standStrategy;
 			this.doubleDownStrategy=doubleDownStrategy;

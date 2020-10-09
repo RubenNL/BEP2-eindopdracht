@@ -8,9 +8,9 @@ package nl.hu.bep2.casino.security.data;
  * contain a lot of business logic.
  */
 public class UserProfile {
-    private String username;
-    private String firstName;
-    private String lastName;
+    private final String username;
+    private final String firstName;
+    private final String lastName;
 
     public UserProfile(String username, String firstName, String lastName) {
         this.username = username;

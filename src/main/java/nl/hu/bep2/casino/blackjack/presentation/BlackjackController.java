@@ -1,16 +1,11 @@
 package nl.hu.bep2.casino.blackjack.presentation;
 
 import nl.hu.bep2.casino.blackjack.application.BlackjackService;
-import nl.hu.bep2.casino.blackjack.exceptions.NotFoundException;
 import nl.hu.bep2.casino.security.application.UserService;
 import nl.hu.bep2.casino.security.data.User;
 import nl.hu.bep2.casino.security.data.UserProfile;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/blackjack")

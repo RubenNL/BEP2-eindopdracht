@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,9 +19,9 @@ class HandTest {
 	@Test
 	void TestValueSimple() {
 		hand.addCard(new Card(Faces.CLUBS,ranks.get(1)));//kaart 2, is 2
-		assertEquals(Arrays.asList(2),hand.getPossibleTotalValues());
+		assertEquals(Collections.singletonList(2),hand.getPossibleTotalValues());
 		hand.addCard(new Card(Faces.CLUBS,ranks.get(11)));//kaart 12, zou 10 moeten zijn.
-		assertEquals(Arrays.asList(12),hand.getPossibleTotalValues());
+		assertEquals(Collections.singletonList(12),hand.getPossibleTotalValues());
 	}
 	@Test
 	void testAce() {

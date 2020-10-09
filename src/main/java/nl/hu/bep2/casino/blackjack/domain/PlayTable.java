@@ -66,7 +66,7 @@ public class PlayTable {
 		PlayTable playTable = (PlayTable) o;
 		return id.equals(playTable.id) &&
 				shoe.equals(playTable.shoe) &&
-				bet == playTable.bet;
+				Objects.equals(bet, playTable.bet);
 	}
 
 	@Override

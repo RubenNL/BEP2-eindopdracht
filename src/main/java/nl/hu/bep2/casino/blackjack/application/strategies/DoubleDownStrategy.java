@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DoubleDownStrategy implements HandStrategie {
-	private HitStrategy hitStrategy;
-	private StandStrategy standStrategy;
+	private final HitStrategy hitStrategy;
+	private final StandStrategy standStrategy;
 	private final ChipsService chipsService;
 	public DoubleDownStrategy(HitStrategy hitStrategy,StandStrategy standStrategy,ChipsService chipsService) {
 		this.hitStrategy=hitStrategy;
