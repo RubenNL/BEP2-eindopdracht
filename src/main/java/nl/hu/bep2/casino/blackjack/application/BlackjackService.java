@@ -46,6 +46,7 @@ public class BlackjackService {
 		if(table.getBet()!=null && table.getBet()>0) throw new GameStateException("game al gestart!");
 		if(!chipsService.withdraw(table.getUser().getUsername(),bet)) throw new FundsException("NOT ENOUGH CHIPS!");
 		table.setBet(bet);
+		tableRepository.save(table);
 		executeAction(table.getPlayerHand(), hitStrategy);
 		executeAction(table.getPlayerHand(), hitStrategy);
 		executeAction(table.getDealerHand(),hitStrategy);
@@ -58,6 +59,7 @@ public class BlackjackService {
 		return table.get();
 	}
 	public void deleteTable(Long id) {
+		if(tableRepository.findById(id).isEmpty()) throw new NotFoundException("table not found!");
 		tableRepository.deleteById(id);
 	}
 	public void executeAction(Hand hand, HandStrategie strategy) {
@@ -93,6 +95,7 @@ public class BlackjackService {
 		for(int value:dealerHand.getPossibleTotalValues()) {
 			if(value>16 && value<22) dealerDone=true;
 		}
+		if(!playerHand.isBust() && !playerHand.hasBlackjack() && !playerHand.isFinished() && !dealerHand.hasBlackjack()) throw new GameStateException("player playing!");
 		if(dealerDone) {
 			if(playerHand.distanceTo21() < dealerHand.distanceTo21()) chipsService.depositChips(table.getUser().getUsername(),table.getBet()*2);//PLAYER CLOSER TO 21
 			if(playerHand.distanceTo21() == dealerHand.distanceTo21()) chipsService.depositChips(table.getUser().getUsername(), table.getBet());//PUSH
