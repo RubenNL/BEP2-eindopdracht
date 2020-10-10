@@ -1,6 +1,6 @@
 package nl.hu.bep2.casino.blackjack.application;
 
-import nl.hu.bep2.casino.blackjack.application.strategies.HandStrategie;
+import nl.hu.bep2.casino.blackjack.application.strategies.HandStrategy;
 import nl.hu.bep2.casino.blackjack.application.strategies.HitStrategy;
 import nl.hu.bep2.casino.blackjack.data.SpringHandRepository;
 import nl.hu.bep2.casino.blackjack.data.SpringTableRepository;
@@ -59,7 +59,7 @@ public class BlackjackService {
 		if(tableRepository.findById(id).isEmpty()) throw new NotFoundException("table not found!");
 		tableRepository.deleteById(id);
 	}
-	public void executeAction(Hand hand, HandStrategie strategy) {
+	public void executeAction(Hand hand, HandStrategy strategy) {
 		if(hand.isFinished()) throw new GameStateException("already standing!");
 		if(hand.isBust()) throw new GameStateException("bust!");
 		if(hand.getTable().getBet()==null || hand.getTable().getBet()==0) throw new GameStateException("niet gestart!");
@@ -73,7 +73,7 @@ public class BlackjackService {
 			if(hand.isBust()) hand.getTable().setBet(0L);
 		}
 	}
-	public void executeAction(Long id,HandStrategie strategy) {
+	public void executeAction(Long id, HandStrategy strategy) {
 		executeAction(getTable(id).getPlayerHand(),strategy);
 	}
 	public void dealerStep(Long id) {

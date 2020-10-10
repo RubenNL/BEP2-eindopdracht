@@ -6,6 +6,7 @@ import nl.hu.bep2.casino.blackjack.domain.Hand;
 import java.util.List;
 
 public class HandDTO {
+	//pattern: DTO (structual)
 	public HandStates state;
 	public final List<Card> cards;
 	public final List<Integer> possibleValues;

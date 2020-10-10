@@ -6,7 +6,7 @@ import nl.hu.bep2.casino.blackjack.domain.PlayTable;
 import org.springframework.stereotype.Component;
 
 @Component
-public class HitStrategy implements HandStrategie {
+public class HitStrategy implements HandStrategy {
 	public HitStrategy(ShoeService shoeService) {
 		this.shoeService=shoeService;
 	}

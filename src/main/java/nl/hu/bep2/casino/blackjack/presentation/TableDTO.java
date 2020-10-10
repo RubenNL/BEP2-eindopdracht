@@ -3,6 +3,7 @@ package nl.hu.bep2.casino.blackjack.presentation;
 import nl.hu.bep2.casino.blackjack.domain.PlayTable;
 
 public class TableDTO {
+	//pattern: DTO (structual)
 	public final HandDTO player;
 	public final HandDTO dealer;
 	public final Long bet;

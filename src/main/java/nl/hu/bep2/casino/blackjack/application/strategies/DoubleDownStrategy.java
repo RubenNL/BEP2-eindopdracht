@@ -7,7 +7,7 @@ import nl.hu.bep2.casino.chips.application.ChipsService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DoubleDownStrategy implements HandStrategie {
+public class DoubleDownStrategy implements HandStrategy {
 	private final HitStrategy hitStrategy;
 	private final StandStrategy standStrategy;
 	private final ChipsService chipsService;

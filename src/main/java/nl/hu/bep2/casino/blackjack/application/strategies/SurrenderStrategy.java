@@ -6,7 +6,7 @@ import nl.hu.bep2.casino.chips.application.ChipsService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SurrenderStrategy implements HandStrategie {
+public class SurrenderStrategy implements HandStrategy {
 	private final StandStrategy standStrategy;
 	private final ChipsService chipsService;
 	public SurrenderStrategy(StandStrategy standStrategy,ChipsService chipsService) {

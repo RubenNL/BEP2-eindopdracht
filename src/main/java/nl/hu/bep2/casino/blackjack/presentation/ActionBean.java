@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 @Transactional
 @Component
 public class ActionBean {
-	//SINGLETON
+	//pattern: singleton/factory (creational)
 	private static ActionBean actionBean;
 	private final HitStrategy hitStrategy;
 	private final StandStrategy standStrategy;
@@ -30,7 +30,7 @@ public class ActionBean {
 	}
 
 	public String action;
-	public HandStrategie getStrategy() {
+	public HandStrategy getStrategy() {
 		if(action.equals("hit")) return hitStrategy;
 		if(action.equals("stand")) return standStrategy;
 		if(action.equals("double") || action.equals("doubledown")) return doubleDownStrategy;
