@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HandTest {
-	static List<Rank> ranks= Arrays.asList(Rank.values()); //wordt bij alle tests gebruikt, hoeft niet opnieuw aangemaakt te worden.
+	static final List<Rank> ranks= Arrays.asList(Rank.values()); //wordt bij alle tests gebruikt, hoeft niet opnieuw aangemaakt te worden.
 	private Hand hand;
 	@BeforeEach
 	void beforeEach() {

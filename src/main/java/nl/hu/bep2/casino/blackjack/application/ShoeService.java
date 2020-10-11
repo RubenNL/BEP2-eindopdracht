@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 @Transactional
 @Service
 public class ShoeService {
+	//pattern: facade (structual)
 	private final SpringShoeRepository shoeRepository;
 	public ShoeService(SpringShoeRepository shoeRepository) {
 		this.shoeRepository = shoeRepository;
